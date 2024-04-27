@@ -348,7 +348,7 @@ def test_update():
     assert part_c == participants_c_1
     assert inv_c == inv_c_1 
 
-testing = True
+testing = False
 with app.app_context():
     db.create_all()
     create_companies()
