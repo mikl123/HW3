@@ -348,6 +348,38 @@ def test_update():
     assert part_c == participants_c_1
     assert inv_c == inv_c_1 
 
+def test_pipeline():
+    # added track
+    data = [[3,"3 days", "Forest track"]]
+    for company in data:
+        track = Track(*company)
+        db.session.add(track)
+    db.session.commit()
+    # added guide
+    guide = Guide('John','Doe',1,company_id=1)
+    db.session.add(guide)
+    db.session.commit()
+    # added trip
+    guide =  Guide.query.first()
+    track =  Track.query.first()
+    trip = Trip("123213","asdasdsad")
+    trip.organizers.append(guide)
+    trip.track = track
+    db.session.add(trip)
+    db.session.commit()
+    # added trip
+    guide =  Guide.query.first()
+    track =  Track.query.first()
+    trip = Trip("123213","asdasdsad")
+    trip.organizers.append(guide)
+    trip.track = track
+    db.session.add(trip)
+    db.session.commit()
+    # added Participant
+    part = Participant('John','Doe')
+    db.session.add(part)
+    db.session.commit()
+
 testing = False
 with app.app_context():
     db.create_all()
@@ -357,5 +389,6 @@ with app.app_context():
         test_insertion()
         test_deletion()
         test_update()
+        test_pipeline()
 if __name__ == "__main__":
     app.run(port=4000,debug=True) 
