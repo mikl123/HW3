@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Trip Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      
+    }
+    .buttons{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .back{
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #dbbe7d;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+      border-radius: 4px;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    
+    input[type="text"], select {
+      width: 200px;
+      padding: 5px;
+      font-size: 14px;
+    }
+    
+    input[type="submit"] {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #dbbe7d;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+      border-radius: 4px;
+    }
+    .success{
+        padding: 30px;
+        background-color: #c4f2c6;
+    }
+    .fail{
+        padding: 30px;
+        background-color: #df752f;
+    }
+    .guides{
+        display: flex;
+        flex-direction: column;
+    }
+    .guide{
+        display: flex;
+        justify-content: space-between;
+    }
+    .back_d{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+  </style>
+</head>
+<body>
+    <div class="back_d">
+        <button class="back" onclick="window.location.href='/'">BACK</button>
+      </div>
+    <strong> Document review (if health document is accepted then corresponding invitation will be created)</strong>
+    {% for user in hd %}
+        <div> User age {{user.doc.participant_age}}</div>
+        <div> User health condition {{user.doc.participant_health_condition}}</div>
+        <div class="buttons">
+        <form action="/accept" method="POST">
+            <input type="hidden" name="hd_id" value="{{user.doc.id}}">
+            <input type="hidden" name="trip_id" value="{{user.trip}}">
+            <button type="submit">Accept</button>
+        </form>
+        <form action="/decline" method="POST">
+            <input type="hidden" name="hd_id" value="{{user.doc.id}}">
+            <input type="hidden" name="trip_id" value="{{user.trip}}">
+            <button type="submit">Decline</button>
+        </form>
+    </div>
+
+  {% endfor %}
+</body>
+</html>

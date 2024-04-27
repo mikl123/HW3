@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Information Form</title>
+  <style>
+    h1 {
+      text-align: center;
+    }
+
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+
+    input[type="submit"] {
+      background-color: #dbbe7d;;
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .success{
+        padding: 30px;
+        background-color: #c4f2c6;
+    }
+    .fail{
+        padding: 30px;
+        background-color: #df752f;
+    }
+    .guides{
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+    .back{
+      margin: auto;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #dbbe7d;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+      border-radius: 4px;
+    }
+    .back_d{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="back_d">
+  <button class="back" onclick="window.location.href='/'">BACK</button>
+</div>
+  <h1>Participant Form</h1>
+  {% if flag == 1 %}
+  <div class="success">Participant created successfully!</div>
+{% elif flag == 2 %}
+  <div class="fail">Participant is not created</div>
+{% else %}
+{% endif %}
+  <form method="POST" action="/participant_reg">
+    <label for="first-name">First Name:</label>
+    <input type="text" id="first-name" name="first_name" required>
+    
+    <label for="last-name">Last Name:</label>
+    <input type="text" id="last-name" name="last_name" required>
+    
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" required>
+    
+    <label for="health-condition">Health Condition:</label>
+    <textarea id="health-condition" name="health_condition" required></textarea>
+    
+    <input type="submit" value="Submit">
+  </form>
+  <div class="guides">
+    <strong>ALL Participants</strong>
+  <br/>
+ {% for user in participants %}
+  <div> ID: {{ user.id }}</div>
+    <div>First name: {{ user.participant_first_name }}</div>
+    <div>Second name: {{ user.participant_second_name }}</div>
+    <div>Age: {{ user.health_document.participant_age }}</div>
+    <div>Health Condition: {{ user.health_document.participant_health_condition }}</div>
+    <br/>
+{% endfor %}
+</div>
+
+</body>
+</html>

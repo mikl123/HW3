@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Send Aplication to Trip</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    
+    form {
+      margin-top: 50px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    
+    input[type="text"], select {
+      width: 200px;
+      padding: 5px;
+      font-size: 14px;
+    }
+    
+    input[type="submit"] {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #dbbe7d;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+      border-radius: 4px;
+    }
+    .success{
+        padding: 30px;
+        background-color: #c4f2c6;
+    }
+    .fail{
+        padding: 30px;
+        background-color: #df752f;
+    }
+    .guides{
+        display: flex;
+        flex-direction: column;
+    }
+    .guide{
+        display: flex;
+        justify-content: space-between;
+    }
+    .back{
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #dbbe7d;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+    <button class="back" onclick="window.location.href='/'">BACK</button>
+  <h1>Trip Form</h1>
+  {% if flag == 1 %}
+    <div class="success">Application sended successfully!</div>
+{% elif flag == 2 %}
+    <div class="fail">Trip is not created</div>
+{% else %}
+{% endif %}
+  <form action="./send_application" method="POST">
+    
+    <label for="companyId">Select from which user application is sended :</label>
+    <select id="participant_id" name="participant_id" required>
+        <option value="">Select a participant</option>
+        {% for part in participants %}
+        <option value="{{part.id}}">{{part.participant_first_name}}</option>
+      {% endfor %}
+    </select>
+
+    <label for="companyId">Select to which Trip application is sended:</label>
+    <select id="trip_id" name="trip_id" required>
+        <option value="">Select a trip</option>
+        {% for trip in trips %}
+        <option value="{{trip.id}}">{{trip.trip_description}}</option>
+      {% endfor %}
+    </select>
+    
+    <input type="submit" value="Submit">
+  </form>
+</body>
+</html>

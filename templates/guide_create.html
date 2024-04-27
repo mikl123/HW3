@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Guide Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    
+    form {
+      margin-top: 50px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    
+    input[type="text"], select {
+      width: 200px;
+      padding: 5px;
+      font-size: 14px;
+    }
+    
+    input[type="submit"] {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #dbbe7d;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+      border-radius: 4px;
+    }
+    .success{
+        padding: 30px;
+        background-color: #c4f2c6;
+    }
+    .fail{
+        padding: 30px;
+        background-color: #df752f;
+    }
+    .guides{
+        display: flex;
+        flex-direction: column;
+    }
+    .guide{
+        display: flex;
+        justify-content: space-between;
+    }
+    .back{
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #dbbe7d;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <button class="back" onclick="window.location.href='/'">BACK</button>
+  <h1>Guide Form</h1>
+  {% if flag == 1 %}
+    <div class="success">Guide created successfully!</div>
+{% elif flag == 2 %}
+    <div class="fail">Guide is not created</div>
+{% else %}
+{% endif %}
+  <form action="./guide_reg" method="POST">
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" name="firstName" required>
+    
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" name="lastName" required>
+    
+    <label for="rating">Rating:</label>
+    <input type="number" id="rating" name="rating" min="1" max="5" required>
+    
+    <label for="companyId">Company:</label>
+    <select id="companyId" name="companyId" required>
+      <option value="">Select a company</option>
+      <option value="1">MoveOn</option>
+      <option value="2">YourTour</option>
+    </select>
+    
+    <input type="submit" value="Submit">
+  </form>
+<div class="guides">
+    <strong>ALL guides</strong>
+  <br/>
+
+  {% for user in guides %}
+  <div> ID: {{ user.id }}</p>
+  <div>First name: {{ user.guide_first_name }}</div>
+  <div>Second name: {{ user.guide_second_name }}</div>
+  <div>guide_rating: {{ user.guide_rating }}</div>
+  <div>Company id: {{ user.company_id }}</div>
+  <br/>
+{% endfor %}
+</div>
+
+</body>
+</html>

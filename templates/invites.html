@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Trip Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    
+    form {
+      margin-top: 50px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    
+    input[type="text"], select {
+      width: 200px;
+      padding: 5px;
+      font-size: 14px;
+    }
+    
+    input[type="submit"] {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #dbbe7d;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+      border-radius: 4px;
+    }
+    .success{
+        padding: 30px;
+        background-color: #c4f2c6;
+    }
+    .fail{
+        padding: 30px;
+        background-color: #df752f;
+    }
+    .guides{
+        display: flex;
+        flex-direction: column;
+    }
+    .guide{
+        display: flex;
+        justify-content: space-between;
+    }
+    .back{
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #dbbe7d;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+      border-radius: 4px;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+  <button class="back" onclick="window.location.href='/'">BACK</button>
+  <h1>Invites</h1>
+  {% for user in inv %}
+  <div>ID: {{ user.id }}</p>
+  <div>invitation text: {{ user.text }}</div>
+  <div>Id of participant: {{ user.id_participant }}</div>
+  <div>Id of trip : {{ user.id_trip }}</div>
+  <br/>
+{% endfor %}
+</div>
+
+</body>
+</html>

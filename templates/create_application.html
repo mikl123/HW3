@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Trip Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    
+    form {
+      margin-top: 50px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    
+    input[type="text"], select {
+      width: 200px;
+      padding: 5px;
+      font-size: 14px;
+    }
+    
+    input[type="submit"] {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #dbbe7d;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+      border-radius: 4px;
+    }
+    .back{
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #dbbe7d;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+      border-radius: 4px;
+    }
+    .success{
+        padding: 30px;
+        background-color: #c4f2c6;
+    }
+    .fail{
+        padding: 30px;
+        background-color: #df752f;
+    }
+    .guides{
+        display: flex;
+        flex-direction: column;
+    }
+    .guide{
+        display: flex;
+        justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+  <button class="back" onclick="window.location.href='/'">BACK</button>
+  <h1>Trip Form</h1>
+  {% if flag == 1 %}
+    <div class="success">Trip created successfully!</div>
+{% elif flag == 2 %}
+    <div class="fail">Trip is not created</div>
+{% else %}
+{% endif %}
+  <form action="./create_trip" method="POST">
+    <label for="firstName">Trip Description:</label>
+    <input type="text" id="firstName" name="desc" required>
+    
+    <label for="lastName">trip start date</label>
+    <input type="date" id="date" name="date" required>
+
+    <label for="companyId">Select what guide is responsible for organization</label>
+    <select id="guide_id" name="guide_id" required>
+        <option value="">Select a guide</option>
+        {% for part in guides %}
+        <option value="{{part.id}}">{{part.guide_first_name}}</option>
+      {% endfor %}
+    </select>
+    <label for="companyId">Track:</label>
+    <select id="trackId" name="trackId" required>
+      <option value="">Select a company</option>
+      <option value="1">Forest Track</option>
+      <option value="2">Seaside Track</option>
+    </select>
+    
+    <input type="submit" value="Submit">
+  </form>
+<div class="guides">
+    <strong>ALL trips</strong>
+  <br/>
+
+  {% for user in participants %}
+  <div>ID: {{ user.id }}</p>
+  <div>Trip Description: {{ user.trip_description }}</div>
+  <div>Trip Start data: {{ user.trip_start_date }}</div>
+  <div>Track ID : {{ user.track.id }}</div>
+  <div>Track Difficulty : {{ user.track.track_difficulty }}</div>
+  <div>Track Duration : {{ user.track.track_duration }}</div>
+  <div>Track Description : {{ user.track.track_description }}</div>
+  <div>Guides : {{ user.organizers}}</div>
+  <br/>
+{% endfor %}
+</div>
+
+</body>
+</html>

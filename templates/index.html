@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Redirect Buttons</title>
+  <style>
+    body {
+      text-align: center;
+    }
+    
+    h1 {
+      color: #333;
+    }
+    .button_wrapper {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;        
+    }
+    
+    button {
+        width: 300px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #dbbe7d;
+      color: rgb(0, 0, 0);
+      border: none;
+      cursor: pointer;
+      margin: 10px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Hiking tour DB managment</h1>
+  <div class = "button_wrapper">
+    <button onclick="redirectTo('/create_trip')">Create Trip</button>
+  <button onclick="redirectTo('/guide_reg')">Create Guide</button>
+  <button onclick="redirectTo('/participant_reg')">Create Participant</button>
+  <button onclick="redirectTo('/send_application')">Send application on trip</button>
+  <button onclick="redirectTo('/review_health_doc')">Review health document</button>
+  <button onclick="redirectTo('/review_invitation')">Review invitations</button>
+  <button onclick="redirectTo('/sql_query_1')">SQL query 1</button>
+  <button onclick="redirectTo('/sql_query_2')">SQL query 2</button>
+  <button onclick="redirectTo('/sql_query_3')">SQL query 3</button>
+  
+</div>
+  <script>
+    function redirectTo(url) {
+      window.location.href = url;
+    }
+  </script>
+</body>
+</html>
