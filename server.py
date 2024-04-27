@@ -21,7 +21,6 @@ class Invitation(db.Model):
         self.id_participant = id_participant
         self.id_trip = id_trip
 
-
 class Guide(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     guide_first_name = db.Column(db.String(30))
@@ -104,10 +103,6 @@ def create_tracks():
         db.session.add(track)
     db.session.commit()
 
-with app.app_context():
-    db.create_all()
-    create_companies()
-    create_tracks()
 @app.route('/', methods = ['GET'])
 def main_page():
     return render_template("index.html")
@@ -281,5 +276,86 @@ def participants_in_trips3():
     return jsonify(participants)
 
 
+def test_insertion():
+    guides_c =  Guide.query.count()
+    participants_c =  Participant.query.count()
+    inv_c =  Invitation.query.count()
+
+    guide = Guide('John','Doe',1,company_id=1)
+    part = Participant('John','Doe')
+    inv = Invitation("Welcome",1,1)
+    db.session.add(guide)
+    db.session.add(part)
+    db.session.add(inv)
+    db.session.commit()
+
+    guides_c_1 =  Guide.query.count()
+    participants_c_1 =  Participant.query.count()
+    inv_c_1 =  Invitation.query.count()
+    assert(guides_c == guides_c_1 -1)
+    assert(participants_c == participants_c_1 -1) 
+    assert(inv_c == inv_c_1 -1)
+
+def test_deletion():
+    guides_c =  Guide.query.count()
+    participants_c =  Participant.query.count()
+    inv_c =  Invitation.query.count()
+    guide = Guide('John','Doe',1,company_id=1)
+    part = Participant('John','Doe')
+    inv = Invitation("Welcome",1,1)
+    db.session.add(guide)
+    db.session.add(part)
+    db.session.add(inv)
+    db.session.commit()
+    
+    guide = Guide.query.first()
+    part = Participant.query.first()
+    inv = Invitation.query.first()
+    
+    if guide:
+        db.session.delete(guide)
+    if part:
+        db.session.delete(part)
+    if inv:
+        db.session.delete(inv)
+    db.session.commit()
+    guides_c_1 = Guide.query.count()
+    participants_c_1 = Participant.query.count()
+    inv_c_1 = Invitation.query.count()
+    assert guides_c == guides_c_1
+    assert participants_c == participants_c_1
+    assert inv_c == inv_c_1 
+
+def test_update():
+    guide = Guide('John','Doe',1,company_id=1)
+    part = Participant('John','Doe')
+    inv = Invitation("Welcome",1,1)
+    db.session.add(guide)
+    db.session.add(part)
+    db.session.add(inv)
+    guide_c = Guide.query.count()
+    part_c = Participant.query.count()
+    inv_c = Invitation.query.count()
+    db.session.commit()
+    guide.guide_first_name = "John1"
+    part.participant_first_name = "John1"
+    inv.text = "John1"
+    db.session.commit()
+    guides_c_1 = Guide.query.count()
+    participants_c_1 = Participant.query.count()
+    inv_c_1 = Invitation.query.count()
+    assert guide_c == guides_c_1
+    assert part_c == participants_c_1
+    assert inv_c == inv_c_1 
+
+testing = True
+with app.app_context():
+    db.create_all()
+    create_companies()
+    create_tracks()
+    if testing == True:
+        test_insertion()
+        test_deletion()
+        test_update()
 if __name__ == "__main__":
     app.run(port=4000,debug=True) 
