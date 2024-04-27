@@ -63,7 +63,7 @@
 </head>
 <body>
     <button class="back" onclick="window.location.href='/'">BACK</button>
-  <h1>Trip Form</h1>
+  <h1>Application Form</h1>
   {% if flag == 1 %}
     <div class="success">Application sended successfully!</div>
 {% elif flag == 2 %}
@@ -72,7 +72,7 @@
 {% endif %}
   <form action="./send_application" method="POST">
     
-    <label for="companyId">Select from which user application is sended :</label>
+    <label for="companyId">Select from which User application is sended :</label>
     <select id="participant_id" name="participant_id" required>
         <option value="">Select a participant</option>
         {% for part in participants %}
